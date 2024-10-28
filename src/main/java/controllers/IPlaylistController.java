@@ -6,6 +6,7 @@ package controllers;
 
 import java.util.List;
 import models.Playlist;
+import persistence.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -33,6 +34,7 @@ public interface IPlaylistController {
     public abstract List<Integer> obtenerIdPlaylistFavoritos(String clienteNick);
     public abstract Playlist findPlaylist(int id);
     public abstract Object[][] obtenerDatosPlaylist(int id);
+    public abstract void eliminarLista(int id) throws NonexistentEntityException;
 
    
    

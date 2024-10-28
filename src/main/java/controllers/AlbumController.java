@@ -37,6 +37,7 @@ public class AlbumController implements IAlbumController {
     private AlbumJpaController auxAL;
     private GeneroJpaController auxG;
     private CancionJpaController auxCan;
+    private ICancionController canCon;
 
     public AlbumController() {
         Fabrica fabrica = Fabrica.getInstance();
@@ -45,6 +46,7 @@ public class AlbumController implements IAlbumController {
         this.auxAL = fabrica.getAlbumJpaController();
         this.auxG = fabrica.getGeneroJpaController();
         this.auxCan = fabrica.getCancionJpaController();
+        this.canCon = fabrica.getICancionController();
     }
 
     public AlbumController(EntityManagerFactory emf) {
@@ -354,7 +356,7 @@ public class AlbumController implements IAlbumController {
         }
         return datos;
   }
-    
+    /*
     public Object[] obtenerDatosCompletoCancion(int idCancion) {
     Cancion cancion = auxCan.findCancion(idCancion);
     
@@ -409,6 +411,7 @@ public class AlbumController implements IAlbumController {
 
     return datos;
 }
+*/
  public Object[][] obtenerAlbumesPorGeneroObj(String generoSeleccionado) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -446,4 +449,47 @@ public class AlbumController implements IAlbumController {
             em.close();
         }
     }
+  public Object[] obtenerDatosCompletoCancion(int idCancion) {
+    Cancion cancion = auxCan.findCancion(idCancion);
+
+    if (cancion == null) {
+        return new Object[0]; // Devuelve un arreglo vacío si la canción no existe.
+    }
+
+    // Obtener el álbum asociado a la canción.
+
+   Album albumAux = auxAL.findAlbum(canCon.obtenerIdAlbum(cancion.getId()));
+
+
+
+
+
+
+    // Crear el arreglo de datos que contendrá toda la información.
+    Object[] datos = new Object[11];
+
+    // Rellenar el arreglo con los datos de la canción y su álbum.
+    datos[0] = cancion.getId();
+    datos[1] = cancion.getNombre();
+    datos[2] = cancion.getDuracion();
+    datos[3] = cancion.getDireccion_archivo_de_audio();
+    datos[4] = albumAux.getDireccion_imagen();
+
+    // Verificar si la canción tiene un género asociado.
+    if (cancion.getGenero() != null) {
+        datos[5] = cancion.getGenero().toString();
+    } else {
+        datos[5] = "Sin Genero asociado";
+    }
+
+    // Datos del álbum y el artista
+    datos[6] = albumAux.getNombre();
+    datos[7] = albumAux.getArtista().getNombre();
+    datos[8] = albumAux.getArtista().getNick();
+    datos[9] = albumAux.getId();
+    datos[10] = albumAux.getArtista().getApellido();
+
+
+    return datos;
+}
 }

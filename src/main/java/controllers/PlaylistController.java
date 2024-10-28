@@ -25,6 +25,7 @@ import persistence.CancionJpaController;
 import persistence.GeneroJpaController;
 import persistence.PlaylistJpaController;
 import persistence.ClienteJpaController;
+import persistence.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -421,7 +422,10 @@ public List<String> obtenerNombresDePlaylistsFavoritas(String clienteNick) {
                 .collect(Collectors.toList());
     }
   
-   
+  public void eliminarLista(int id) throws NonexistentEntityException{
+
+       auxPlay.destroy(id);
+} 
     
 }
    
