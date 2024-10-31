@@ -196,7 +196,7 @@ public class AlbumController implements IAlbumController {
                     "SELECT a FROM Album a JOIN a.generos g WHERE g.nombre = :nombreGenero", Album.class)
                     .setParameter("nombreGenero", nombreGenero)
                     .getResultList();
-        Object[][] data = new Object[albumes.size()][8];
+        Object[][] data = new Object[albumes.size()][9];
 
             for (int i = 0; i < albumes.size(); i++) {
                 Album album = albumes.get(i);
@@ -212,6 +212,8 @@ public class AlbumController implements IAlbumController {
                         .collect(Collectors.joining(", "));
                 data[i][6] = album.getDireccion_imagen();
                 data[i][7] = album.getArtista().getApellido();
+                data[i][8] = album.getArtista().getNick();
+
             }
             return data;
             

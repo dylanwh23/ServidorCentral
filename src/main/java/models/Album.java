@@ -24,7 +24,7 @@ import javax.persistence.OneToMany;
  * @author dylan
  */
 @Entity
-@Table(name="Album")
+@Table(name="album")
 public class Album implements Serializable {
 
     private static final long serialVersionUID = 1L;

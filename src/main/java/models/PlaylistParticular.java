@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="PlaylistParticular")
+@Table(name="playlistparticular")
 public class PlaylistParticular extends Playlist {
 
 	@Column(name="privada")

@@ -24,7 +24,7 @@ import javax.persistence.ManyToMany;
  * @author dylan
  */
 @Entity
-@Table(name="Cliente")
+@Table(name="cliente")
 @DiscriminatorValue("cliente")
 
 

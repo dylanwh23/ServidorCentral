@@ -22,7 +22,7 @@ import javax.persistence.DiscriminatorType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo_usuario", discriminatorType = DiscriminatorType.STRING)
-@Table(name="Usuario")
+@Table(name="usuario")
 public class Usuario implements Serializable {
     
     @Id
@@ -50,6 +50,8 @@ public class Usuario implements Serializable {
         this.nick = nick;
     }
     
+      
+ 
     public String getContraseña() {
         return contraseñaHash;
     }

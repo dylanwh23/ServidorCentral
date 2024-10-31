@@ -25,10 +25,10 @@ import javax.persistence.JoinTable;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="Playlist")
+@Table(name="playlist")
 public class Playlist implements Serializable {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	    protected int id;
     

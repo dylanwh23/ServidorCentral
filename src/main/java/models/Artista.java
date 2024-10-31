@@ -16,7 +16,7 @@ import javax.persistence.DiscriminatorValue;
  * @author dylan
  */
 @Entity
-@Table(name="Artista")
+@Table(name="artista")
 @DiscriminatorValue("artista")
 
 public class Artista extends Usuario {

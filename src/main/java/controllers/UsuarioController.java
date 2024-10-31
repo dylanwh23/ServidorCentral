@@ -304,14 +304,14 @@ public class UsuarioController implements IUsuarioController {
     public List<String> obtenerNicknamesseguidos(String usuario) throws Exception {
         List<String> aux = null;
         ClienteJpaController jpa = new ClienteJpaController(emf);
-        Query query = jpa.getEntityManager().createNativeQuery("Select usuario_id from cliente_usuariosseguidos where cliente_id ='" + usuario + "'");
+        Query query = jpa.getEntityManager().createNativeQuery("Select usuario_id from cliente_usuariosSeguidos where cliente_id ='" + usuario + "'");
         return query.getResultList();
     }
     
     public List<String> obtenerNicknamesseguidores(String usuario) throws Exception {
         List<String> aux = null;
         ClienteJpaController jpa = new ClienteJpaController(emf);
-        Query query = jpa.getEntityManager().createNativeQuery("Select cliente_id from cliente_usuariosseguidos where usuario_id ='" + usuario + "'");
+        Query query = jpa.getEntityManager().createNativeQuery("Select cliente_id from cliente_usuariosSeguidos where usuario_id ='" + usuario + "'");
         return query.getResultList();
     }
 
@@ -339,7 +339,7 @@ public class UsuarioController implements IUsuarioController {
             transaction = em.getTransaction();
             transaction.begin();
 
-            String sql = "INSERT INTO cliente_usuariosseguidos (cliente_id, usuario_id) VALUES (?, ?)";
+            String sql = "INSERT INTO cliente_usuariosSeguidos (cliente_id, usuario_id) VALUES (?, ?)";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, usuario);
             query.setParameter(2, usuarioASeguir);
@@ -359,7 +359,7 @@ public class UsuarioController implements IUsuarioController {
             transaction = em.getTransaction();
             transaction.begin();
 
-            String sql = "Delete from cliente_usuariosseguidos where cliente_id ='" + usuario + "' and usuario_id = '" + usuarioADejarDeSeguir + "'";
+            String sql = "Delete from cliente_usuariosSeguidos where cliente_id ='" + usuario + "' and usuario_id = '" + usuarioADejarDeSeguir + "'";
             Query query = em.createNativeQuery(sql);
             query.executeUpdate();
             transaction.commit();
@@ -451,18 +451,16 @@ public class UsuarioController implements IUsuarioController {
 
         try {
             // Ejecutar la consulta JPQL que devuelve un Object[]
-            Object[] datosSql = (Object[]) em.createQuery("SELECT u.nick, u.apellido, u.fecNac, u.imagen, u.mail, u.nombre FROM Usuario u WHERE u.nick = :nick")
-                .setParameter("nick", nick)
-                .getSingleResult();
-
+            Object[] datosSql = (Object[]) em.createNativeQuery("SELECT nick, apellido, fecNac, imagen, mail, nombre, tipo_usuario FROM usuario WHERE nick ='"+nick+"'").getSingleResult();
             // Convertir cada valor a String y almacenarlo en el mapa
-            datos.put("nick", datosSql[0].toString());
-            datos.put("apellido", datosSql[1].toString());
-            datos.put("fecNac", datosSql[2].toString()); // Asegúrate de formatear adecuadamente si es un Date
-            datos.put("imagen", datosSql[3].toString()); // Si es un byte[], convierte a String apropiadamente
-            datos.put("mail", datosSql[4].toString());
-            datos.put("nombre", datosSql[5].toString());
-
+            datos.put("nick", Fabrica.safeToString(datosSql[0]));
+            datos.put("apellido", Fabrica.safeToString(datosSql[1]));
+            datos.put("fecNac", Fabrica.safeToString(datosSql[2])); // Asegúrate de formatear adecuadamente si es un Date
+            datos.put("imagen", Fabrica.safeToString(datosSql[3])); // Si es un byte[], convierte a String apropiadamente
+            datos.put("mail", Fabrica.safeToString(datosSql[4]));
+            datos.put("nombre", Fabrica.safeToString(datosSql[5]));
+            datos.put("tipo_usuario", Fabrica.safeToString(datosSql[6]));
+    
         } catch (Exception e) {
             e.printStackTrace(); 
         } finally {

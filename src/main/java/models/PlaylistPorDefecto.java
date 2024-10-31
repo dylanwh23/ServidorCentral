@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 
 @Entity
-@Table(name="PlaylistPorDefecto")
+@Table(name="playlistpordefecto")
 public class PlaylistPorDefecto extends Playlist {
     
     @ManyToOne
