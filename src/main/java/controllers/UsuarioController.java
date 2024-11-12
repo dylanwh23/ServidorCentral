@@ -512,4 +512,19 @@ public class UsuarioController implements IUsuarioController {
        usrController.edit(cliente);  // Verifica que este método use merge() correctamente.
     }
 }
+     
+   public String usuarioNombre(String nick){
+       Usuario art = usrController.findUsuario(nick);
+       String nombre = art.getNombre();
+       String apellido = art.getApellido();
+       
+       
+        if (apellido == null || apellido.isEmpty()) {
+        return nombre; // Retorna solo el nombre si no hay apellido
+    } else {
+        return nombre + " " + apellido; // Retorna nombre completo con un espacio
+    }
+        
+    }  
+     
 }

@@ -49,6 +49,14 @@ public class Usuario implements Serializable {
     public void setNick(String nick) {
         this.nick = nick;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
     
       
  

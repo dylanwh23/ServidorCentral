@@ -36,7 +36,7 @@ public interface IUsuarioController {
     public abstract void eliminarAlbumFavoritoWeb(String nick, int id) throws Exception;
     public abstract void registrarAlbumFavoritoWeb(String nick, int id) throws Exception;
     public abstract boolean esCliente(String nickname);
-
+    public abstract String usuarioNombre(String nick);
     
     public abstract Boolean inicioSesion(String nick, String password);
     public String hashPassword(String password);
